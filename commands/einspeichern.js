@@ -33,12 +33,10 @@ module.exports = {
     }
 
 
-    console.log(lastMessage);
     if (!lastMessage.author.bot && lastMessage.content) {
       // get displayname
       const guild = await client.guilds.cache.get(lastMessage.guildId);
       const gmember = await guild.members.fetch(lastMessage.author.id);
-      console.log(gmember);
       const displayname = gmember.displayName;
 
 

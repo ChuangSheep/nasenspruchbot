@@ -22,7 +22,6 @@ module.exports = {
       }
       );
 
-      console.log(res.data);
       if (res) {
         await interaction.reply(`"${res.data.scontent}" -- ${res.data.susername}`);
         console.log(`[INFO] (klopfen) Success: Replied '${JSON.stringify(res.data)}'`);
@@ -32,7 +31,6 @@ module.exports = {
         console.log(`[INFO] (klopfen) Fail: Unknown failure.`);
       }
     } catch (e) {
-      console.log(e.response.status);
       if (e.response.status === 404) {
         await interaction.reply(`Für die gegebenen Person wurde noch kein Nasenspruch gespeichert.`);
         console.log(`[INFO] (klopfen) Fail: No MSG fetched from API.`);
