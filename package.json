@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "nodemon index.js",
-    "bot": "node index.js",
+    "serve": "node index.js",
     "deploy": "node deploy_commands.js"
   },
   "author": "Chuyang Wang",
