@@ -15,7 +15,7 @@ module.exports = {
 
     // Database communication
     try {
-      let res = await axios.get(`${process.env.API_BASE_URL}?userid=${userid}`,{
+      let res = await axios.get(`${process.env.API_BASE_URL}?userid=${userid}`, {
         headers: {
           Authorization: `Bearer ${process.env.DATABASE_TOKEN}`,
         }
@@ -27,12 +27,18 @@ module.exports = {
         console.log(`[INFO] (klopfen) Success: Replied '${JSON.stringify(res.data)}'`);
       }
       else {
-        await interaction.reply(`Unbekannter Fehler.`);
+        await interaction.reply({
+          content: `Unbekannter Fehler.`,
+          ephemeral: true
+        });
         console.log(`[INFO] (klopfen) Fail: Unknown failure.`);
       }
     } catch (e) {
       if (e.response.status === 404) {
-        await interaction.reply(`Für die gegebenen Person wurde noch kein Nasenspruch gespeichert.`);
+        await interaction.reply({
+          content: `Für die gegebenen Person wurde noch kein Nasenspruch gespeichert.`,
+          ephemeral: true
+        });
         console.log(`[INFO] (klopfen) Fail: No MSG fetched from API.`);
       }
       else {

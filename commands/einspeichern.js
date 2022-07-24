@@ -27,11 +27,23 @@ module.exports = {
     // check if creterias are fulfilled
     // timeout < 30s
     if (Date.now() - lastMessage.createdTimestamp > 30000) {
-      await interaction.reply(`Die letzte Nachricht war leider zu lange her.`);
+      await interaction.reply({
+        content: `Die letzte Nachricht war leider zu lange her.`,
+        ephemeral: true
+      });
       console.log(`[INFO] (einspeichern) Fail: MSG timed out.`);
       return;
     }
 
+    // not allow to save own message
+    if (lastMessage.author.id === interaction.user.id) {
+      await interaction.reply({
+        content: `Du darfst nicht deine eigene Nachricht als deinen Nasenspruch speichern!`,
+        ephemeral: true
+      });
+      console.log(`[INFO] (einspeichern) Fail: No own message.`);
+      return;
+    }
 
     if (!lastMessage.author.bot && lastMessage.content) {
       // get displayname
@@ -58,7 +70,11 @@ module.exports = {
     }
     else {
       // cannot find content
-      await interaction.reply(`Leider konnte kein gültiger Nasenspruch gefunden werden.`);
+      await interaction.reply(
+        {
+          content: `Leider konnte kein gültiger Nasenspruch gefunden werden.`,
+          ephemeral: true
+        });
       console.log(`[INFO] (einspeichern) Fail: No MSG fetched.`);
     }
   },
